@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Dynamic Island
+GenericName=Desktop Island Widget
+Comment=Apple-style physics animated Dynamic Island for GNOME Ubuntu
+Exec=run.sh
+Icon=dynamic-island
+Terminal=false
+Type=Application
+Categories=Utility;AudioVideo;System;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=2
