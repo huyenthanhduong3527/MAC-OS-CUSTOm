@@ -1,0 +1,392 @@
+/* Apple Dark Glassmorphism CSS for Dynamic Island */
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Ubuntu", "Cantarell", sans-serif;
+    outline: none;
+    -gtk-icon-style: symbolic;
+}
+
+/* Base transparent background for main window */
+.transparent-window {
+    background-color: transparent;
+}
+
+/* Compact Island Pill */
+.compact-pill {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0px 18px;
+}
+
+.compact-time {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.6px;
+}
+
+.compact-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #93c5fd;
+}
+
+/* Expanded Card Container */
+.expanded-container {
+    background-color: transparent;
+    padding: 12px 16px 14px 16px;
+}
+
+/* Tab Bar */
+.tab-bar {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 9999px;
+    padding: 3px;
+    margin-bottom: 12px;
+}
+
+.tab-button {
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 180ms ease-in-out;
+}
+
+.tab-button:hover {
+    color: #f8fafc;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.tab-button.active {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Content Area */
+.tab-content {
+    background: transparent;
+}
+
+/* Media Tab */
+.media-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.media-artist {
+    font-size: 12px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.media-time {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.media-album-art {
+    background-color: #18181b;
+    border-radius: 10px;
+}
+
+/* Media Control Buttons */
+.ctrl-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 9999px;
+    padding: 6px;
+    color: #f1f5f9;
+    transition: all 150ms ease;
+}
+
+.ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.ctrl-btn.primary {
+    background: #ffffff;
+    color: #000000;
+    padding: 8px;
+}
+
+.ctrl-btn.primary:hover {
+    background: #f1f5f9;
+}
+
+/* Sliders (GtkScale) */
+scale trough {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    min-height: 5px;
+    min-width: 5px;
+}
+
+scale highlight {
+    background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    border-radius: 9999px;
+}
+
+scale slider {
+    background-color: #ffffff;
+    border-radius: 9999px;
+    min-width: 12px;
+    min-height: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    margin: -4px;
+}
+
+scale slider:hover {
+    background-color: #f0f9ff;
+}
+
+/* System Vitals Tab */
+.vital-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.vital-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.vital-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.vital-subtext {
+    font-size: 10px;
+    color: #64748b;
+}
+
+/* Quick Controls Tab */
+.quick-action-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px;
+    color: #f8fafc;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 180ms ease;
+}
+
+.quick-action-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Timer Tab */
+.timer-display {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.preset-chip {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 150ms ease;
+}
+
+.preset-chip:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Event Banner (Popup Capsule) */
+.event-banner {
+    color: #ffffff;
+    padding: 2px 14px;
+}
+
+.event-app {
+    font-size: 10px;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: 0.8px;
+}
+
+.event-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.event-subtitle {
+    font-size: 11px;
+    color: #cbd5e1;
+}
+
+.event-icon-box {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    padding: 4px;
+}
+
+.event-shot-box {
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 0;
+}
+
+/* Apple Volume HUD Typography */
+.volume-pct {
+    font-size: 13px;
+    font-weight: 800;
+    color: #f8fafc;
+    min-width: 42px;
+}
+
+.volume-muted {
+    font-size: 11px;
+    font-weight: 900;
+    color: #ef4444;
+    min-width: 46px;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   macOS Tahoe / Sequoia Top Menu Bar Styles
+   ========================================================= */
+
+.mac-top-bar-box {
+    padding: 0 10px;
+    min-height: 30px;
+}
+
+/* Apple Logo () */
+.mac-apple-btn {
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    padding: 1px 10px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 120ms ease;
+}
+
+.mac-apple-btn:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Menu Items (File, Edit, View, Go, Tools, Settings, Help, Search) */
+.mac-menu-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1f5f9;
+    padding: 1px 7px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 120ms ease;
+}
+
+.mac-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.mac-menu-item:active,
+.mac-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+}
+
+/* Right Status Tray */
+.mac-tray-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f8fafc;
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 120ms ease;
+}
+
+.mac-tray-item:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Date & Time with Pipe Separator */
+.mac-clock-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f8fafc;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 120ms ease;
+}
+
+.mac-clock-btn:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Spotlight Search */
+.mac-spotlight-btn {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f8fafc;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 120ms ease;
+}
+
+.mac-spotlight-btn:hover {
+    background-color: rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+}
+
+/* Dropdown Glass Menus */
+.mac-dropdown-menu {
+    background-color: rgba(24, 28, 38, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.mac-dropdown-item {
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 3px 10px;
+}
+
+.mac-dropdown-item:hover {
+    background-color: #0284c7;
+    color: #ffffff;
+}

@@ -1,0 +1,10 @@
+{
+  "uuid": "macos-menu-bar@Nguyenthanhtam",
+  "name": "macOS Menu Bar",
+  "description": "Replaces the GNOME top panel with a macOS-style menu bar featuring Apple logo menu, global menus (File/Edit/View/Go/Tools/Settings/Help), and a live status tray with real battery, Wi-Fi, Bluetooth and volume indicators.",
+  "shell-version": [
+    "45", "46", "47", "48", "49", "50"
+  ],
+  "version": 2,
+  "url": "https://github.com/tramvo/macos-menu-bar-gnome"
+}
