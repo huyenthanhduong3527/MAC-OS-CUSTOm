@@ -22,8 +22,8 @@
 Mở **Terminal** và dán đoạn lệnh sau để cài đặt trọn gói tất cả thành phần:
 
 ```bash
-git clone https://github.com/tramvo/Dynamic_island.git
-cd Dynamic_island
+git clone https://github.com/huyenthanhduong3527/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX.git
+cd DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX
 ./install.sh
 ```
 
