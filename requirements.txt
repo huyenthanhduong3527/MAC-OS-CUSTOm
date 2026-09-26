@@ -9,3 +9,10 @@
 
 # Audio backend: PipeWire / WirePlumber (wpctl) - default on Ubuntu 24.04+
 # Power backend: UPower - default on Ubuntu
+
+# sudo apt install gir1.2-gstreamer-1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+
+# Face presence detection (no identity matching)
+# sudo apt install python3-opencv opencv-data
+
+# sudo apt install openssl python3-pil

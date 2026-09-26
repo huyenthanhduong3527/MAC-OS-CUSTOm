@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=App Store
+GenericName=App Center (macOS App Store)
+GenericName[vi]=Trung tâm ứng dụng (App Center)
+X-GNOME-FullName=App Store (Ubuntu App Center)
+X-GNOME-FullName[vi]=App Store (Trung tâm ứng dụng Ubuntu App Center)
+Comment=Apple macOS App Store (Ubuntu App Center)
+Comment[vi]=Kho ứng dụng Apple macOS App Store (Trung tâm ứng dụng Ubuntu App Center)
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --appstore %U
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/appstore_icon.png
+Terminal=false
+Type=Application
+Categories=System;Utility;PackageManager;SoftwareManagement;Network;Settings;
+Keywords=Ubuntu;Applications;Apps;Store;Software;Snaps;App Store;App Center;AppCenter;Snap Store;Cửa hàng ứng dụng;Trung tâm ứng dụng;kho ứng dụng;cài app;cài phần mềm;
+StartupNotify=true
+StartupWMClass=macos-appstore
+MimeType=x-scheme-handler/snap;application/vnd.debian.binary-package;

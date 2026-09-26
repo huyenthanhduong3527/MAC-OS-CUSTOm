@@ -32,7 +32,8 @@ class AudioController:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                check=False
+                check=False,
+                timeout=0.4
             )
             if res.returncode == 0:
                 output = res.stdout.strip()
@@ -41,7 +42,7 @@ class AudioController:
                 if m:
                     self.volume = min(1.5, max(0.0, float(m.group(1))))
                 self.is_muted = "[MUTED]" in output
-        except Exception as e:
+        except Exception:
             # Fallback
             pass
 
@@ -54,7 +55,8 @@ class AudioController:
                 ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", f"{value:.2f}"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                check=False
+                check=False,
+                timeout=0.4
             )
             self._last_reported_vol = self.volume
             if self.on_volume_change:
@@ -70,7 +72,8 @@ class AudioController:
                 ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                check=False
+                check=False,
+                timeout=0.4
             )
             self._last_reported_mute = self.is_muted
             if self.on_volume_change:
@@ -79,9 +82,9 @@ class AudioController:
             print(f"[Audio] Error toggling mute: {e}")
 
     def _monitor_loop(self):
-        """Polls volume status every 80ms to detect changes from external volume keys with 0 perceived latency."""
+        """Polls volume status every 120ms to detect changes with zero UI lag."""
         while self._running:
-            time.sleep(0.08)
+            time.sleep(0.12)
             self.update_status()
 
             if self._last_reported_vol is None:

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=AirDrop
+Name[vi]=AirDrop
+GenericName=Apple AirDrop
+Comment=Chia sẻ tệp tin không dây tức thì qua AirDrop cho Ubuntu & iPhone
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --airdrop
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/airdrop_icon.png
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;Utility;
+StartupNotify=true
+StartupWMClass=macos-airdrop
+Keywords=AirDrop;Apple;File;Share;Transfer;iPhone;iPad;Mac;Bluetooth;WiFi;

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Ảnh
+GenericName=macOS Photos
+Comment=Apple macOS Sequoia Photos Manager for Ubuntu Linux
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --photos
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/photos_icon.png
+Terminal=false
+Type=Application
+Categories=Graphics;Photography;Viewer;
+Keywords=photos;pictures;gallery;images;anh;xem anh;
+StartupNotify=true
+StartupWMClass=macos-photos

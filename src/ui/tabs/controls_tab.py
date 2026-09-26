@@ -14,12 +14,19 @@ from src.utils.icons import get_pixbuf
 from src.utils.theme import is_dark_mode, toggle_dark_mode
 
 class ControlsTab(Gtk.Box):
-    def __init__(self, audio_ctrl, on_collapse=None):
+    def __init__(self, audio_ctrl, brightness_ctrl=None, on_collapse=None):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.get_style_context().add_class("tab-content")
 
         self.audio_ctrl = audio_ctrl
         self.on_collapse = on_collapse
+
+        if brightness_ctrl is None:
+            from src.modules.brightness import BrightnessController
+            brightness_ctrl = BrightnessController.get_instance()
+        self.brightness_ctrl = brightness_ctrl
+        if self.brightness_ctrl:
+            self.brightness_ctrl.add_listener(self._on_external_brightness_change)
 
         # 1. Volume Row
         vol_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
@@ -54,7 +61,41 @@ class ControlsTab(Gtk.Box):
 
         self.pack_start(vol_box, False, False, 0)
 
-        # 2. Quick Action Buttons Row
+        # 2. Display Brightness Row
+        bright_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+
+        bright_header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        self.bright_icon = Gtk.Image.new_from_pixbuf(get_pixbuf("sun", 15, "#fbbf24"))
+        bright_title = Gtk.Label(label="DISPLAY BRIGHTNESS")
+        bright_title.get_style_context().add_class("vital-label")
+        self.bright_pct_lbl = Gtk.Label(label="100%")
+        self.bright_pct_lbl.get_style_context().add_class("vital-label")
+
+        bright_header.pack_start(self.bright_icon, False, False, 0)
+        bright_header.pack_start(bright_title, False, False, 0)
+        bright_header.pack_end(self.bright_pct_lbl, False, False, 0)
+        bright_box.pack_start(bright_header, False, False, 0)
+
+        # Slider + Sun Quick Toggle button
+        bright_slider_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        self.bright_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 10, 100, 1)
+        self.bright_scale.set_draw_value(False)
+        self.bright_scale.set_hexpand(True)
+        self.bright_scale.get_style_context().add_class("brightness-scale")
+        self.bright_scale.connect("value-changed", self._on_bright_slider_change)
+
+        self.bright_btn = Gtk.Button()
+        self.bright_btn.set_image(Gtk.Image.new_from_pixbuf(get_pixbuf("sun", 14, "#fbbf24")))
+        self.bright_btn.get_style_context().add_class("ctrl-btn")
+        self.bright_btn.connect("clicked", self._on_bright_btn_clicked)
+
+        bright_slider_row.pack_start(self.bright_scale, True, True, 0)
+        bright_slider_row.pack_end(self.bright_btn, False, False, 0)
+        bright_box.pack_start(bright_slider_row, False, False, 0)
+
+        self.pack_start(bright_box, False, False, 0)
+
+        # 3. Quick Action Buttons Row
         actions_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         actions_box.set_homogeneous(True)
 
@@ -96,10 +137,10 @@ class ControlsTab(Gtk.Box):
         self.pack_start(actions_box, False, False, 0)
 
         self._updating_slider = False
+        self._updating_bright_slider = False
         self.update()
 
     def update(self):
-        self.audio_ctrl.update_status()
         vol = self.audio_ctrl.volume
         is_muted = self.audio_ctrl.is_muted
 
@@ -114,6 +155,13 @@ class ControlsTab(Gtk.Box):
             self.vol_icon.set_from_pixbuf(get_pixbuf("volume_mute", 15, "#ef4444"))
         else:
             self.vol_icon.set_from_pixbuf(get_pixbuf("volume_high", 15, "#38bdf8"))
+
+        if self.brightness_ctrl:
+            b_val = self.brightness_ctrl.get_brightness()
+            self.bright_pct_lbl.set_text(f"{int(b_val)}%")
+            self._updating_bright_slider = True
+            self.bright_scale.set_value(b_val)
+            self._updating_bright_slider = False
 
         self._sync_theme_ui()
 
@@ -134,6 +182,32 @@ class ControlsTab(Gtk.Box):
         self.audio_ctrl.set_volume(val)
         self.vol_pct_lbl.set_text(f"{int(scale.get_value())}%")
 
+    def _on_external_brightness_change(self, pct):
+        GLib.idle_add(self._sync_brightness_display, pct)
+
+    def _sync_brightness_display(self, pct):
+        self.bright_pct_lbl.set_text(f"{int(pct)}%")
+        self._updating_bright_slider = True
+        self.bright_scale.set_value(pct)
+        self._updating_bright_slider = False
+        return False
+
+    def _on_bright_slider_change(self, scale):
+        if self._updating_bright_slider:
+            return
+        val = int(scale.get_value())
+        if self.brightness_ctrl:
+            self.brightness_ctrl.set_brightness(val)
+        self.bright_pct_lbl.set_text(f"{val}%")
+
+    def _on_bright_btn_clicked(self, btn):
+        if not self.brightness_ctrl:
+            return
+        cur = self.brightness_ctrl.get_brightness()
+        target = 50 if cur >= 85 else 100
+        self.brightness_ctrl.set_brightness(target)
+        self.update()
+
     def _on_mute_clicked(self, btn):
         self.audio_ctrl.toggle_mute()
         self.update()
@@ -141,6 +215,9 @@ class ControlsTab(Gtk.Box):
     def _on_screenshot(self, btn):
         if self.on_collapse:
             self.on_collapse()
+
+        from src.modules.sound import SoundManager
+        SoundManager.get_instance().play_screenshot()
 
         def _do_screenshot():
             time.sleep(0.2)

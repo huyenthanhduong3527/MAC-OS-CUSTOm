@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background squircle shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+    
+    <!-- Notepad paper gradient -->
+    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f6f6f7"/>
+    </linearGradient>
+
+    <!-- Top golden header bar gradient (Iconic Apple Notes Yellow) -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb834"/>
+      <stop offset="40%" stop-color="#f5a623"/>
+      <stop offset="100%" stop-color="#e09010"/>
+    </linearGradient>
+
+    <!-- Subtle paper texture / clip -->
+    <clipPath id="squircleClip">
+      <rect x="32" y="32" width="448" height="448" rx="100" ry="100"/>
+    </clipPath>
+
+    <!-- Pen gradient -->
+    <linearGradient id="penBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fed777"/>
+      <stop offset="50%" stop-color="#e89d1b"/>
+      <stop offset="100%" stop-color="#b87405"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base Card with Shadow -->
+  <rect x="32" y="32" width="448" height="448" rx="100" ry="100" fill="url(#paperGrad)" filter="url(#shadow)"/>
+
+  <!-- Clipped content inside squircle -->
+  <g clip-path="url(#squircleClip)">
+    <!-- Top yellow-orange binder header -->
+    <rect x="32" y="32" width="448" height="135" fill="url(#headerGrad)"/>
+    
+    <!-- Perforated dotted line below header -->
+    <line x1="32" y1="167" x2="480" y2="167" stroke="#e08e0b" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
+    
+    <!-- Ruled notepad horizontal lines -->
+    <line x1="72" y1="215" x2="440" y2="215" stroke="#dcdde0" stroke-width="4" stroke-linecap="round"/>
+    <line x1="72" y1="270" x2="440" y2="270" stroke="#dcdde0" stroke-width="4" stroke-linecap="round"/>
+    <line x1="72" y1="325" x2="440" y2="325" stroke="#dcdde0" stroke-width="4" stroke-linecap="round"/>
+    <line x1="72" y1="380" x2="440" y2="380" stroke="#dcdde0" stroke-width="4" stroke-linecap="round"/>
+    <line x1="72" y1="435" x2="330" y2="435" stroke="#dcdde0" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Left margin vertical separator (macOS Notes style) -->
+    <line x1="120" y1="168" x2="120" y2="480" stroke="#ffcc80" stroke-width="2.5" opacity="0.5"/>
+
+    <!-- Subtle embossed Apple Notes glyph / Pen -->
+    <g transform="translate(250, 230) rotate(-35) scale(0.9)">
+      <!-- Pen body -->
+      <rect x="0" y="-12" width="180" height="24" rx="4" fill="url(#penBody)"/>
+      <!-- Pen tip holder -->
+      <polygon points="180,-12 215,0 180,12" fill="#e5e5ea"/>
+      <!-- Nib point -->
+      <polygon points="205,-4 220,0 205,4" fill="#3a3a3c"/>
+      <!-- Pen back cap -->
+      <rect x="-24" y="-12" width="24" height="24" rx="6" fill="#d1d1d6"/>
+      <rect x="-18" y="-10" width="8" height="20" rx="3" fill="#8e8e93"/>
+      <!-- Gold band ring -->
+      <rect x="40" y="-13" width="10" height="26" fill="#ffd700" opacity="0.8"/>
+    </g>
+
+    <!-- Top header subtle shine -->
+    <rect x="32" y="32" width="448" height="4" fill="#ffffff" opacity="0.4"/>
+  </g>
+</svg>

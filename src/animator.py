@@ -45,9 +45,10 @@ class SpringValue:
 class IslandAnimator:
     """Manages 2D dimension and opacity animations for the Dynamic Island."""
     def __init__(self, initial_w=210.0, initial_h=36.0, on_update=None, on_finish=None):
-        self.w = SpringValue(initial_w, stiffness=210.0, damping=20.0)
-        self.h = SpringValue(initial_h, stiffness=230.0, damping=21.0)
-        self.opacity = SpringValue(0.0, stiffness=190.0, damping=22.0) # 0.0 = compact, 1.0 = expanded
+        # Critically damped springs (zeta >= 1.0) prevent window jitter and overshoot on Wayland
+        self.w = SpringValue(initial_w, stiffness=240.0, damping=31.0)
+        self.h = SpringValue(initial_h, stiffness=260.0, damping=32.5)
+        self.opacity = SpringValue(0.0, stiffness=220.0, damping=30.0) # 0.0 = compact, 1.0 = expanded
 
         self.on_update = on_update
         self.on_finish = on_finish

@@ -189,6 +189,15 @@ class EventBanner(Gtk.EventBox):
             self.vol_pct_lbl.get_style_context().add_class("volume-pct")
             self.vol_bar_area.set_volume(volume, is_muted=False)
 
+    def show_brightness(self, pct):
+        """Configure banner for Apple style Brightness HUD."""
+        self._switch_mode("volume")
+        self.vol_icon.set_from_pixbuf(get_pixbuf("sun", 16, "#fbbf24"))
+        self.vol_pct_lbl.set_text(f"{int(pct)}%")
+        self.vol_pct_lbl.get_style_context().remove_class("volume-muted")
+        self.vol_pct_lbl.get_style_context().add_class("volume-pct")
+        self.vol_bar_area.set_volume(pct / 100.0, is_muted=False)
+
     def show_track(self, title, artist):
         """Configure banner for track change."""
         self._switch_mode("notif")
@@ -221,6 +230,9 @@ class EventBanner(Gtk.EventBox):
         elif "music" in app_name.lower():
             icon_name = "music"
             icon_color = "#a855f7"
+        elif "airdrop" in app_name.lower():
+            icon_name = "airdrop"
+            icon_color = "#007aff"
 
         # If screenshot image preview is available, display rounded thumbnail
         if image_path and os.path.exists(image_path):

@@ -12,10 +12,14 @@ from src.ui.tabs.vitals_tab import VitalsTab
 from src.ui.tabs.controls_tab import ControlsTab
 from src.ui.tabs.timer_tab import TimerTab
 from src.ui.tabs.notifications_tab import NotificationsTab
+from src.ui.tabs.clipboard_tab import ClipboardTab
+from src.ui.tabs.gemini_tab import GeminiTab
 from src.ui.tabs.settings_tab import SettingsTab
+from src.modules.clipboard import ClipboardManager
+from src.utils.i18n import t
 
 class ExpandedView(Gtk.Box):
-    def __init__(self, media_mgr, system_mon, audio_ctrl, timer_mod, visualizer, notif_mgr=None, on_collapse=None, on_offset_change=None, on_quit=None, on_cosmos_change=None):
+    def __init__(self, media_mgr, system_mon, audio_ctrl, timer_mod, visualizer, notif_mgr=None, brightness_ctrl=None, on_collapse=None, on_offset_change=None, on_size_change=None, on_quit=None, on_cosmos_change=None, on_clock_change=None, on_music_change=None, on_calendar_change=None, on_weather_change=None, on_battery_change=None):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.set_name("expanded-card")
         self.get_style_context().add_class("expanded-card")
@@ -32,13 +36,16 @@ class ExpandedView(Gtk.Box):
         self.tab_bar.get_style_context().add_class("tab-bar")
 
         self.tab_buttons = {}
+        self.tab_labels = {}
         tabs = [
-            ("media", "Music", "music"),
-            ("vitals", "Vitals", "cpu"),
-            ("controls", "Controls", "controls"),
-            ("timer", "Timer", "timer"),
-            ("notifs", "Notifs", "bell"),
-            ("settings", "Settings", "settings"),
+            ("media", t("tab_media"), "music"),
+            ("vitals", t("tab_vitals"), "cpu"),
+            ("controls", t("tab_controls"), "controls"),
+            ("timer", t("tab_timer"), "timer"),
+            ("notifs", t("tab_notifications"), "bell"),
+            ("clipboard", "Clip", "clipboard"),
+            ("gemini", "Qwen", "sparkles"),
+            ("settings", t("settings_title"), "settings"),
         ]
 
         for tab_id, label, icon in tabs:
@@ -53,15 +60,20 @@ class ExpandedView(Gtk.Box):
             btn.connect("clicked", lambda b, tid=tab_id: self.switch_to_tab(tid))
             self.tab_bar.pack_start(btn, False, False, 0)
             self.tab_buttons[tab_id] = btn
+            self.tab_labels[tab_id] = btn_lbl
 
         nav_box.pack_start(self.tab_bar, True, True, 0)
 
-        # Collapse Button
-        collapse_btn = Gtk.Button()
-        collapse_btn.set_image(Gtk.Image.new_from_pixbuf(get_pixbuf("collapse", 14, "#94a3b8")))
-        collapse_btn.get_style_context().add_class("ctrl-btn")
-        collapse_btn.connect("clicked", lambda b: self.on_collapse() if self.on_collapse else None)
-        nav_box.pack_end(collapse_btn, False, False, 0)
+        # Collapse chevron button
+        btn_collapse = Gtk.Button()
+        btn_collapse.get_style_context().add_class("tab-button")
+        btn_collapse.get_style_context().add_class("collapse-button")
+        collapse_icon = Gtk.Image.new_from_pixbuf(get_pixbuf("chevron_up", 12, "#cbd5e1"))
+        btn_collapse.set_image(collapse_icon)
+        btn_collapse.set_tooltip_text("Collapse Island")
+        if self.on_collapse:
+            btn_collapse.connect("clicked", lambda b: self.on_collapse())
+        nav_box.pack_end(btn_collapse, False, False, 0)
 
         self.pack_start(nav_box, False, False, 0)
 
@@ -73,16 +85,31 @@ class ExpandedView(Gtk.Box):
         # Create tab widgets
         self.media_tab = MediaTab(media_mgr, visualizer)
         self.vitals_tab = VitalsTab(system_mon)
-        self.controls_tab = ControlsTab(audio_ctrl, on_collapse=self.on_collapse)
+        self.controls_tab = ControlsTab(audio_ctrl, brightness_ctrl=brightness_ctrl, on_collapse=self.on_collapse)
         self.timer_tab = TimerTab(timer_mod)
         self.notifs_tab = NotificationsTab(notif_mgr)
-        self.settings_tab = SettingsTab(on_offset_change=on_offset_change, on_quit=on_quit, on_cosmos_change=on_cosmos_change)
+        self.clipboard_tab = ClipboardTab(ClipboardManager.get_instance())
+        self.gemini_tab = GeminiTab()
+        self.siri_tab = self.gemini_tab
+        self.settings_tab = SettingsTab(
+            on_offset_change=on_offset_change,
+            on_size_change=on_size_change,
+            on_quit=on_quit,
+            on_cosmos_change=on_cosmos_change,
+            on_clock_change=on_clock_change,
+            on_music_change=on_music_change,
+            on_calendar_change=on_calendar_change,
+            on_weather_change=on_weather_change,
+            on_battery_change=on_battery_change
+        )
 
         self.stack.add_named(self.media_tab, "media")
         self.stack.add_named(self.vitals_tab, "vitals")
         self.stack.add_named(self.controls_tab, "controls")
         self.stack.add_named(self.timer_tab, "timer")
         self.stack.add_named(self.notifs_tab, "notifs")
+        self.stack.add_named(self.clipboard_tab, "clipboard")
+        self.stack.add_named(self.gemini_tab, "gemini")
         self.stack.add_named(self.settings_tab, "settings")
 
         self.pack_start(self.stack, True, True, 0)
@@ -91,6 +118,8 @@ class ExpandedView(Gtk.Box):
         self.switch_to_tab("media")
 
     def switch_to_tab(self, tab_id):
+        if tab_id == "siri":
+            tab_id = "gemini"
         self.current_tab = tab_id
         self.stack.set_visible_child_name(tab_id)
 
@@ -104,9 +133,30 @@ class ExpandedView(Gtk.Box):
             else:
                 btn.get_style_context().remove_class("active")
 
+        if tab_id == "clipboard":
+            # Rebuild once after the stack switches. Rebuilding from the 30 FPS
+            # window update loop can replace a button between press and release.
+            GLib.idle_add(self.clipboard_tab.update)
+
         self.update()
 
+    def update_tab_labels(self):
+        tab_titles = {
+            "media": t("tab_media"),
+            "vitals": t("tab_vitals"),
+            "controls": t("tab_controls"),
+            "timer": t("tab_timer"),
+            "notifs": t("tab_notifications"),
+            "clipboard": "Clip",
+            "gemini": "Qwen",
+            "settings": t("settings_title")
+        }
+        for tid, lbl in self.tab_labels.items():
+            if tid in tab_titles:
+                lbl.set_text(tab_titles[tid])
+
     def update(self):
+        self.update_tab_labels()
         if self.current_tab == "media":
             self.media_tab.update()
         elif self.current_tab == "vitals":

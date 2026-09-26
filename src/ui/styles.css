@@ -6,9 +6,25 @@
     -gtk-icon-style: symbolic;
 }
 
-/* Base transparent background for main window */
-.transparent-window {
+/* Base transparent background for main window and desktop widgets */
+.transparent-window,
+window.desktop-widget,
+window.DesktopWidget,
+window.desktop-widget-music,
+window.desktop-widget-calendar,
+window.desktop-widget-weather,
+window.desktop-widget-battery,
+window.desktop-widget-clock,
+window.desktop-widget-photo,
+window.desktop-widget-weekday,
+window.desktop-widget-macbook,
+window.DesktopWidgetMacbook,
+window.macos-lyrics,
+window.MacOSLyrics,
+window.macos-about,
+window.MacOSAbout {
     background-color: transparent;
+    background: transparent;
 }
 
 /* Compact Island Pill */
@@ -120,6 +136,12 @@
     background: #f1f5f9;
 }
 
+.ctrl-btn.active {
+    background: #10b981;
+    color: #ffffff;
+    font-weight: 600;
+}
+
 /* Sliders (GtkScale) */
 scale trough {
     background-color: rgba(255, 255, 255, 0.12);
@@ -130,6 +152,11 @@ scale trough {
 
 scale highlight {
     background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    border-radius: 9999px;
+}
+
+scale.brightness-scale highlight {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
     border-radius: 9999px;
 }
 
@@ -152,6 +179,12 @@ scale slider:hover {
     border-radius: 14px;
     padding: 10px 12px;
     border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 120ms ease;
+}
+
+.vital-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(56, 189, 248, 0.25);
 }
 
 .vital-label {
@@ -389,4 +422,71 @@ scale slider:hover {
 .mac-dropdown-item:hover {
     background-color: #0284c7;
     color: #ffffff;
+}
+
+/* ── Apple Intelligence & Gemini Siri Styling ── */
+.gemini-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.2px;
+}
+
+.gemini-sub {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.gemini-response-card {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 12px;
+}
+
+.gemini-response-text {
+    font-size: 12.5px;
+    color: #f1f5f9;
+}
+
+.gemini-chip {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: #e2e8f0;
+    transition: all 150ms ease;
+}
+
+.gemini-chip:hover {
+    background-color: rgba(0, 242, 254, 0.18);
+    border-color: rgba(0, 242, 254, 0.40);
+    color: #ffffff;
+}
+
+.gemini-input-pill {
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 2px 6px 2px 10px;
+}
+
+.gemini-entry {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.gemini-send-btn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.gemini-send-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }

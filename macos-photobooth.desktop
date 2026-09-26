@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Photo Booth
+GenericName=Photo Booth & Virtual Camera
+GenericName[vi]=Photo Booth & Camera Ảo
+Comment=macOS Photo Booth with Virtual Camera & Troll Effects
+Comment[vi]=Chụp ảnh phong cách macOS Photo Booth với Camera ảo & hiệu ứng Troll
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --photobooth
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/photobooth_icon.png
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;Graphics;Photography;Utility;
+Keywords=Camera;Webcam;Photo;Booth;Troll;Virtual;Filter;Chụp ảnh;Máy ảnh;Cam ảo;
+StartupNotify=true
+StartupWMClass=macos-photobooth

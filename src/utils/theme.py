@@ -17,15 +17,11 @@ def is_dark_mode() -> bool:
     except Exception:
         return False
 
-def toggle_dark_mode() -> bool:
-    """
-    Toggle between dark and light mode.
-    Returns True if the new mode is dark, False if light.
-    """
-    current_dark = is_dark_mode()
-    new_is_dark = not current_dark
-    new_scheme = "prefer-dark" if new_is_dark else "default"
+is_system_dark_mode = is_dark_mode
 
+def set_dark_mode(is_dark: bool) -> bool:
+    """Set system color-scheme to dark or light mode."""
+    new_scheme = "prefer-dark" if is_dark else "default"
     try:
         subprocess.run(
             ["gsettings", "set", "org.gnome.desktop.interface", "color-scheme", new_scheme],
@@ -34,9 +30,32 @@ def toggle_dark_mode() -> bool:
     except Exception as e:
         print(f"[Theme] Error setting color-scheme: {e}")
 
-    # Synchronize GTK theme if MacTahoe themes exist
     home = os.path.expanduser("~")
-    target_theme = "MacTahoe-Dark" if new_is_dark else "MacTahoe-Light"
+    curr_accent = "blue"
+    try:
+        res = subprocess.check_output(
+            ["gsettings", "get", "org.gnome.desktop.interface", "accent-color"],
+            timeout=1
+        ).decode().strip().strip("'\"")
+        if res:
+            curr_accent = res
+    except Exception:
+        pass
+
+    if curr_accent == "slate":
+        mactahoe_col = "grey"
+    elif curr_accent in ("multi", ""):
+        mactahoe_col = "blue"
+    else:
+        mactahoe_col = curr_accent
+
+    mode = "Dark" if is_dark else "Light"
+    candidate = f"MacTahoe-{mode}-{mactahoe_col}"
+    if os.path.exists(os.path.join(home, ".themes", candidate)):
+        target_theme = candidate
+    else:
+        target_theme = f"MacTahoe-{mode}"
+
     theme_path = os.path.join(home, ".themes", target_theme)
     if os.path.exists(theme_path):
         try:
@@ -46,5 +65,11 @@ def toggle_dark_mode() -> bool:
             )
         except Exception as e:
             print(f"[Theme] Error setting gtk-theme: {e}")
+    return is_dark
 
-    return new_is_dark
+def toggle_dark_mode() -> bool:
+    """
+    Toggle between dark and light mode.
+    Returns True if the new mode is dark, False if light.
+    """
+    return set_dark_mode(not is_dark_mode())

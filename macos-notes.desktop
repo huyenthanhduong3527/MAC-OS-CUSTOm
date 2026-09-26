@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Ghi chú
+GenericName=macOS Notes
+Comment=Apple macOS Sequoia Notes with Audio Recording & Live Transcription for Ubuntu Linux
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --notes
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/notes_icon.png
+Terminal=false
+Type=Application
+Categories=Utility;TextEditor;Office;Audio;
+Keywords=notes;note;ghi chu;audio;recording;transcription;memo;
+StartupNotify=true
+StartupWMClass=macos-notes
+

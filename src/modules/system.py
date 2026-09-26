@@ -17,6 +17,7 @@ class SystemMonitor:
         self.is_charging = False
         self.has_battery = False
         self.disk_pct = 0.0
+        self.per_cpu_pct = []
 
         self._upower_device = None
         self._init_upower()
@@ -35,6 +36,10 @@ class SystemMonitor:
         """Update system metrics."""
         # CPU
         self.cpu_pct = psutil.cpu_percent(interval=None)
+        try:
+            self.per_cpu_pct = psutil.cpu_percent(interval=None, percpu=True)
+        except Exception:
+            self.per_cpu_pct = [self.cpu_pct]
 
         # RAM
         mem = psutil.virtual_memory()
@@ -58,12 +63,12 @@ class SystemMonitor:
         elif self._upower_device:
             try:
                 props = dbus.Interface(self._upower_device, "org.freedesktop.DBus.Properties")
-                dev_type = props.Get("org.freedesktop.UPower.Device", "Type")
+                dev_type = props.Get("org.freedesktop.UPower.Device", "Type", timeout=0.3)
                 # Type 2 = Battery
                 if dev_type == 2:
                     self.has_battery = True
-                    self.battery_pct = int(props.Get("org.freedesktop.UPower.Device", "Percentage"))
-                    state = props.Get("org.freedesktop.UPower.Device", "State")
+                    self.battery_pct = int(props.Get("org.freedesktop.UPower.Device", "Percentage", timeout=0.3))
+                    state = props.Get("org.freedesktop.UPower.Device", "State", timeout=0.3)
                     self.is_charging = (state == 1) # 1 = Charging
                 else:
                     self.has_battery = False

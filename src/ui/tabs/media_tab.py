@@ -141,24 +141,36 @@ class MediaTab(Gtk.Box):
         if art_pix:
             self.art_icon.set_from_pixbuf(art_pix)
         else:
-            self.art_icon.set_from_pixbuf(get_pixbuf("music", 22, "#38bdf8"))
+            app_ico = self.media_mgr.get_app_icon(32)
+            if app_ico:
+                self.art_icon.set_from_pixbuf(app_ico)
+            else:
+                self.art_icon.set_from_pixbuf(get_pixbuf("music", 22, "#38bdf8"))
 
-        # Update play icon
+        # Update play icon & visualizer visibility
         if self.media_mgr.is_playing():
             self.play_btn.set_image(Gtk.Image.new_from_pixbuf(get_pixbuf("pause", 18, "#000000")))
+            if not self.vis_area.get_visible():
+                self.vis_area.show()
+            self.vis_area.queue_draw()
         else:
             self.play_btn.set_image(Gtk.Image.new_from_pixbuf(get_pixbuf("play", 18, "#000000")))
+            if self.vis_area.get_visible():
+                self.vis_area.hide()
 
         # Update progress
-        dur = max(1, self.media_mgr.duration)
-        pos = min(dur, self.media_mgr.position)
-        self.scale.set_range(0, dur)
-        self.scale.set_value(pos)
-
-        self.pos_lbl.set_text(self._format_time(pos))
-        self.dur_lbl.set_text(self._format_time(dur))
-
-        self.vis_area.queue_draw()
+        dur = self.media_mgr.duration
+        pos = self.media_mgr.position
+        if dur > 0:
+            self.scale.show()
+            self.scale.set_range(0, dur)
+            self.scale.set_value(min(dur, pos))
+            self.pos_lbl.set_text(self._format_time(pos))
+            self.dur_lbl.set_text(self._format_time(dur))
+        else:
+            self.scale.hide()
+            self.pos_lbl.set_text("LIVE AUDIO" if self.media_mgr.is_playing() else "PAUSED")
+            self.dur_lbl.set_text(self._format_time(pos) if pos > 0 else "")
 
     def _format_time(self, seconds):
         mins = int(seconds) // 60

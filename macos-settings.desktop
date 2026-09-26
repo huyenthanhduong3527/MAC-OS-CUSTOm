@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Cài đặt Hệ thống
+GenericName=macOS System Settings
+Comment=Apple macOS Sequoia System Settings for Ubuntu
+Exec=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh --settings
+Icon=/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/src/ui/settings_icon.png
+Terminal=false
+Type=Application
+Categories=Settings;HardwareSettings;DesktopSettings;
+StartupNotify=true
+StartupWMClass=macos-settings
