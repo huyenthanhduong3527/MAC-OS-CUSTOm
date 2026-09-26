@@ -16,6 +16,7 @@ import numpy as np
 _script_dir = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(os.path.dirname(_script_dir), "assets", "wallpapers")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "sakura_torii_4k_live.mp4")
+SRC_IMAGE = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser("~/.local/share/backgrounds/2026-09-24-12-33-16-a0e042b9b953595e3b0fac60006fc5dc.jpg")
 
 WIDTH = 3840
 HEIGHT = 2160
