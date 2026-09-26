@@ -19,7 +19,18 @@ else
     echo "✅ Oh My Zsh đã được cài đặt từ trước."
 fi
 
-# 3. Đổi theme sang agnoster
+# 3. Đổi theme sang agnoster & Cài đặt font MesloLGS NF nếu máy mới chưa có
+FONT_DIR="$HOME/.local/share/fonts"
+if ! fc-list : family 2>/dev/null | grep -q "MesloLGS NF"; then
+    echo "🔤 Đang tải và cài đặt font chữ MesloLGS NF (Nerd Font)..."
+    mkdir -p "$FONT_DIR"
+    for f in "Regular" "Bold" "Italic" "Bold%20Italic"; do
+        curl -fsSL -o "$FONT_DIR/MesloLGS NF ${f//%20/ }.ttf" "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20${f}.ttf" 2>/dev/null || true
+    done
+    fc-cache -f "$FONT_DIR" 2>/dev/null || true
+    echo "✅ Đã cài đặt xong font MesloLGS NF."
+fi
+
 echo "🎨 Cấu hình Theme Agnoster..."
 if [ -f "$HOME/.zshrc" ]; then
     sed -i 's/ZSH_THEME=".*"/ZSH_THEME="agnoster"/' "$HOME/.zshrc"
