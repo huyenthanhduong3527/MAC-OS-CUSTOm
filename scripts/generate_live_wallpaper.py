@@ -13,8 +13,8 @@ import subprocess
 import cv2
 import numpy as np
 
-SRC_IMAGE = "/home/tramvo/.local/share/backgrounds/2026-09-24-12-33-16-a0e042b9b953595e3b0fac60006fc5dc.jpg"
-OUTPUT_DIR = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/wallpapers"
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(os.path.dirname(_script_dir), "assets", "wallpapers")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "sakura_torii_4k_live.mp4")
 
 WIDTH = 3840

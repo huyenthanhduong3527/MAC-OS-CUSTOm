@@ -13,8 +13,8 @@ from typing import List, Dict, Optional, Any
 
 DATA_DIR = os.path.expanduser("~/.local/share/macos-notes")
 RECORDINGS_DIR = os.path.join(DATA_DIR, "recordings")
-NOTES_FILE = os.path.join(DATA_DIR, "notes.json")
-SAMPLE_AUDIO_PATH = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/sample_audio_call.wav"
+_base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SAMPLE_AUDIO_PATH = os.path.join(_base_dir, "assets", "sample_audio_call.wav")
 
 
 DEFAULT_FOLDERS = [

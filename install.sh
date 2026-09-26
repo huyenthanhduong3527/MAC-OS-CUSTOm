@@ -244,31 +244,41 @@ install_apps() {
 
     # 1. Notes (Ghi chú)
     if [ -f "${SCRIPT_DIR}/macos-notes.desktop" ]; then
-        sed "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --notes|g" "${SCRIPT_DIR}/macos-notes.desktop" > "${APP_DIR}/macos-notes.desktop"
+        sed -e "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --notes|g" \
+            -e "s|Icon=.*|Icon=${SCRIPT_DIR}/assets/notes_icon.png|g" \
+            "${SCRIPT_DIR}/macos-notes.desktop" > "${APP_DIR}/macos-notes.desktop"
         chmod +x "${APP_DIR}/macos-notes.desktop"
     fi
 
     # 2. Photos (Ảnh)
     if [ -f "${SCRIPT_DIR}/macos-photos.desktop" ]; then
-        sed "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --photos|g" "${SCRIPT_DIR}/macos-photos.desktop" > "${APP_DIR}/macos-photos.desktop"
+        sed -e "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --photos|g" \
+            -e "s|Icon=.*|Icon=${SCRIPT_DIR}/assets/photos_icon.png|g" \
+            "${SCRIPT_DIR}/macos-photos.desktop" > "${APP_DIR}/macos-photos.desktop"
         chmod +x "${APP_DIR}/macos-photos.desktop"
     fi
 
     # 3. Settings (Cài đặt hệ thống)
     if [ -f "${SCRIPT_DIR}/macos-settings.desktop" ]; then
-        sed "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --settings|g" "${SCRIPT_DIR}/macos-settings.desktop" > "${APP_DIR}/macos-settings.desktop"
+        sed -e "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --settings|g" \
+            -e "s|Icon=.*|Icon=${SCRIPT_DIR}/src/ui/settings_icon.png|g" \
+            "${SCRIPT_DIR}/macos-settings.desktop" > "${APP_DIR}/macos-settings.desktop"
         chmod +x "${APP_DIR}/macos-settings.desktop"
     fi
 
     # 4. AirDrop
     if [ -f "${SCRIPT_DIR}/macos-airdrop.desktop" ]; then
-        sed "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --airdrop|g" "${SCRIPT_DIR}/macos-airdrop.desktop" > "${APP_DIR}/macos-airdrop.desktop"
+        sed -e "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --airdrop|g" \
+            -e "s|Icon=.*|Icon=${SCRIPT_DIR}/assets/airdrop_icon.png|g" \
+            "${SCRIPT_DIR}/macos-airdrop.desktop" > "${APP_DIR}/macos-airdrop.desktop"
         chmod +x "${APP_DIR}/macos-airdrop.desktop"
     fi
 
     # 5. Photo Booth
     if [ -f "${SCRIPT_DIR}/macos-photobooth.desktop" ]; then
-        sed "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --photobooth|g" "${SCRIPT_DIR}/macos-photobooth.desktop" > "${APP_DIR}/macos-photobooth.desktop"
+        sed -e "s|Exec=.*|Exec=${SCRIPT_DIR}/run.sh --photobooth|g" \
+            -e "s|Icon=.*|Icon=${SCRIPT_DIR}/assets/photobooth_icon.png|g" \
+            "${SCRIPT_DIR}/macos-photobooth.desktop" > "${APP_DIR}/macos-photobooth.desktop"
         chmod +x "${APP_DIR}/macos-photobooth.desktop"
     fi
 

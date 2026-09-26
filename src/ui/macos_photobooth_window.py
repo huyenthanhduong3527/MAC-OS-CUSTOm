@@ -55,7 +55,8 @@ from src.modules.virtual_cam import (
 
 PHOTOS_DIR = os.path.expanduser("~/Pictures/Photo Booth")
 os.makedirs(PHOTOS_DIR, exist_ok=True)
-PHOTOBOOTH_ASSETS_DIR = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/photobooth"
+_base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PHOTOBOOTH_ASSETS_DIR = os.path.join(_base_dir, "assets", "photobooth")
 
 def get_pb_image(name: str, width: int = 24, height: Optional[int] = None) -> Gtk.Image:
     """Load a real PNG image asset from assets/photobooth."""

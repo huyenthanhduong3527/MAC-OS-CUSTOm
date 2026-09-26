@@ -632,8 +632,9 @@ HTML_MOBILE_APP = """<!DOCTYPE html>
 """
 
 
-SSL_CERT_PATH = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/photobooth/ssl/cert.pem"
-SSL_KEY_PATH = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/photobooth/ssl/key.pem"
+_base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SSL_CERT_PATH = os.path.join(_base_dir, "assets", "photobooth", "ssl", "cert.pem")
+SSL_KEY_PATH = os.path.join(_base_dir, "assets", "photobooth", "ssl", "key.pem")
 
 class PhoneCameraHandler(BaseHTTPRequestHandler):
     server_instance: 'PhoneCameraServer' = None

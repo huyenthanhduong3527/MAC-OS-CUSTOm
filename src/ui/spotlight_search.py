@@ -608,8 +608,9 @@ class SpotlightSearchWindow(Gtk.Window):
             icon_box.pack_start(calc_icon, True, True, 0)
         elif item["type"] == "system":
             act = item.get("action", "")
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             if act == "appstore":
-                appstore_png = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/assets/appstore_icon.png"
+                appstore_png = os.path.join(base_dir, "assets", "appstore_icon.png")
                 if os.path.exists(appstore_png):
                     try:
                         pb = GdkPixbuf.Pixbuf.new_from_file_at_scale(appstore_png, 32, 32, True)
@@ -619,7 +620,7 @@ class SpotlightSearchWindow(Gtk.Window):
                 else:
                     sys_icon = Gtk.Image.new_from_icon_name("softwarecenter", Gtk.IconSize.LARGE_TOOLBAR)
             elif act == "settings":
-                settings_png = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/src/ui/settings_icon.png"
+                settings_png = os.path.join(base_dir, "src", "ui", "settings_icon.png")
                 if os.path.exists(settings_png):
                     try:
                         pb = GdkPixbuf.Pixbuf.new_from_file_at_scale(settings_png, 32, 32, True)

@@ -222,7 +222,8 @@ class SiriAssistant:
         target = target.strip("'\"")
 
         # 1. Custom macOS & Dynamic Island apps
-        run_sh = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/run.sh"
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        run_sh = os.path.join(base_dir, "run.sh")
 
         if "airdrop" in target:
             subprocess.Popen([run_sh, "--airdrop"])

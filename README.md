@@ -97,10 +97,10 @@ Trước tiên, mở **Terminal** (`Ctrl + Alt + T`) và tải mã nguồn về 
 
 ```bash
 # 1. Tải repository về máy
-git clone https://github.com/huyenthanhduong3527/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX.git
+git clone https://github.com/huyenthanhduong3527/mac-os-custom.git
 
 # 2. Di chuyển vào thư mục dự án
-cd DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX
+cd mac-os-custom
 
 # 3. Cấp quyền thực thi cho các file kịch bản
 chmod +x install.sh uninstall.sh rm.sh run.sh main.py install_theme.sh scripts/*.sh scripts/*.py
@@ -415,7 +415,7 @@ Bạn có thể chạy các lệnh này từ Terminal hoặc gán phím tắt t�
 ## 📂 Cấu Trúc Mã Nguồn Dự Án (Tiếng Việt)
 
 ```
-DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/
+mac-os-custom/
 ├── main.py                     # Entrypoint & Quản lý IPC CLI Hotkey / Dispatcher
 ├── run.sh                      # Script khởi chạy tổng hợp (X11 & Wayland)
 ├── install.sh                  # Trình cài đặt Modular (Tất cả hoặc riêng lẻ)
@@ -535,10 +535,10 @@ First, open your **Terminal** (`Ctrl + Alt + T`) and clone the repository:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/huyenthanhduong3527/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX.git
+git clone https://github.com/huyenthanhduong3527/mac-os-custom.git
 
 # 2. Enter the project directory
-cd DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX
+cd mac-os-custom
 
 # 3. Make scripts executable
 chmod +x install.sh uninstall.sh rm.sh run.sh main.py install_theme.sh scripts/*.sh scripts/*.py
@@ -863,7 +863,7 @@ The installer automatically injects CSS rules to suppress GNOME's native OSD. If
 ## 📂 Project Structure (English)
 
 ```
-DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/
+mac-os-custom/
 ├── main.py                     # Entrypoint & CLI/IPC Command Dispatcher
 ├── run.sh                      # Unified runner script (X11 / Wayland overlay)
 ├── install.sh                  # Modular installer (All or specific components)

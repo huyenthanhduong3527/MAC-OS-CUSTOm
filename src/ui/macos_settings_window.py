@@ -872,14 +872,15 @@ class AppleLogoWidget(Gtk.DrawingArea):
         self.pb_white = None
         self.pb_dark = None
 
-        svg_white = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/src/ui/apple_white.svg"
+        ui_dir = os.path.dirname(os.path.abspath(__file__))
+        svg_white = os.path.join(ui_dir, "apple_white.svg")
         if os.path.exists(svg_white):
             try:
                 self.pb_white = GdkPixbuf.Pixbuf.new_from_file_at_scale(svg_white, size, size, True)
             except Exception as e:
                 print(f"[AppleLogo] Error loading vector white logo: {e}")
 
-        svg_dark = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/src/ui/apple_dark.svg"
+        svg_dark = os.path.join(ui_dir, "apple_dark.svg")
         if os.path.exists(svg_dark):
             try:
                 self.pb_dark = GdkPixbuf.Pixbuf.new_from_file_at_scale(svg_dark, size, size, True)
@@ -3292,7 +3293,8 @@ class MacOSSettingsWindow(Gtk.Window):
         return False
 
     def _build_sidebar_items(self):
-        island_svg = "/home/tramvo/DYNAMIC-ISLNAD-FOR-UNTUBU-LINUX/src/ui/island_badge.svg"
+        ui_dir = os.path.dirname(os.path.abspath(__file__))
+        island_svg = os.path.join(ui_dir, "island_badge.svg")
 
         def get_wifi_sub():
             try:
